@@ -1,5 +1,16 @@
 # 22IA-arqdados-grupola
 
+## Integrantes
+Marcelo Leopoldo e Silva de Carvalho Filho - RM342876
+
+Mike Willian Garcia - RM336702
+
+Rubens Elias Francischetti Alasmar - RM343659
+
+Lucas Augusto Ribeiro - RM343289
+
+## Enunciado
+
 > A DindinAgora, tem sofrido com lentidões em seus sistema transacional principal, onde os clientes
 podem se cadastrar, adquirir produtos (crédito) e realizar transações financeiras, como depósitos e
 transferências.
@@ -8,53 +19,11 @@ transferências.
 clientes, com dados cadastrais contendo dados documentais e de endereço, depósitos, aquisições de
 produtos de crédito e transferência.
 
-Tabelas: 
-* clientes
-* endereço
-* deposito
-* aquisição de produtos de crédito
-* transferência
+## Arquivos
 
-Schemas:
-```
-cliente:
-ID -> Primary Key Int
-nome -> String
-CPF -> String
-RG -> String
+* a dll (comandos para criação do banco) se encontra no arquivo [DinDinAgora.sql](/DinDinAgora.sql)
+* o modelo está em pdf no arquivo [diagram.pdf](/diagram.pdf) . 
 
-endereco:
-ID -> Priamry Key Int
-logradouro -> String
-CEP -> String
-Numero -> String
-Complemento -> String
+segue abaixo um preview do arquivo `diagram.pdf`:
+![image](https://user-images.githubusercontent.com/49515264/157539384-b0846d29-2a47-4dc1-b4f6-7b84a3566ffb.png)
 
-cliente_endereco:
-ID -> Primary Key Int
-enderecoFK -> Foreign Key (endereco)
-clienteFK -> Foreign Key (cliente)
-
-deposito:
-ID -> Primary Key Int
-montante -> Float
-Cliente -> Foreign Key (cliente)
-
-aquisicao_de_produtos_de_credito
-ID -> Primary Key Int
-
-transferencia
-ID -> Primary Key Int
-```
-
-Relações
-
-Cliente * ---- * Endereco
-(Many to Many)
-1 Ciente tem multiplos endereços
-1 Endereço tem multiplos clientes
-
-Deposito --- * Clientes
-(1 to Many)
-1 deposito tem 1 cliente
-1 cliente tem multiplos depositos
