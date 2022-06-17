@@ -1,0 +1,4 @@
+## Pergunta 1
+Para poder atender às necessidades de melhoria na eficiência do banco, podemos adotar 2 arquiteturas principais para cada temática:
+- **Para análises temporais com Machine Learning**: Podemos utulizar a arquitetura OLAP como o do Cassandra para melhor eficiência, aproveitando de sua esturura de cubos que já possuem uma agregação na visão necessária.
+- **Para a melhoria nas requisições de consulta por tipo de produto e infos dos clientes**: Podemos nos aproveitar da agilidade de consulta de um banco MongoDB NoSQL, que atualmente é bastante usado para integrações na web, pois sua arquitetura não estruturada não depende de indexações sequenciais na busca de um cliente.
