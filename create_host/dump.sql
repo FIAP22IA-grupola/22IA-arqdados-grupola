@@ -1,24 +1,10 @@
 -- Script criacao POstgres SQL
 
--- Database: postgres
-
--- DROP DATABASE IF EXISTS postgres;
-
-CREATE DATABASE postgres
-    WITH
-    OWNER = "user"
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'en_US.utf8'
-    LC_CTYPE = 'en_US.utf8'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
-
-COMMENT ON DATABASE postgres
-    IS 'default administrative connection database';
 -- -----------------------------------------------------
 -- Schema DinDinAgora
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS "DinDinAgora";
+CREATE SCHEMA IF NOT EXISTS "DinDinAgora"
+  AUTHORIZATION "user";
 
 -- -----------------------------------------------------
 -- Table "DinDinAgora"."endereco"
