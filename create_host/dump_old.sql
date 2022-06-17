@@ -15,6 +15,9 @@ CREATE TABLE IF NOT EXISTS "DinDinAgora"."endereco" (
   "CEP" VARCHAR(255) NOT NULL,
   "complemento" VARCHAR(255) NULL,
   PRIMARY KEY ("ID"));
+ 
+CREATE UNIQUE INDEX "unique_enderecoFK"
+ON "DinDinAgora"."cliente" ("enderecoFK" ASC);
   
 -- -----------------------------------------------------
 -- Table "DinDinAgora"."cliente"
@@ -25,7 +28,7 @@ CREATE TABLE IF NOT EXISTS "DinDinAgora"."cliente" (
   "nome" VARCHAR(255) NOT NULL,
   "RG" VARCHAR(255) NOT NULL,
   "CPF" VARCHAR(255) NOT NULL,
-  "enderecoFK" INT NULL,
+  "enderecoFK" INT NOT NULL,
     CONSTRAINT "fk_cliente_endereco"
     FOREIGN KEY ("enderecoFK")
         REFERENCES "DinDinAgora"."endereco"("ID")
