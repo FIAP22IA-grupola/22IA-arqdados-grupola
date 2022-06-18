@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   db:
-    image: postgres
+    build: .
     container_name: local_pgdb
     restart: always
     ports:
@@ -9,9 +9,9 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: admin
-      PGDATA: /var/lib/postgresql/data
     volumes:
       - local_pgdata:/var/lib/postgresql/data
+      
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4_container
