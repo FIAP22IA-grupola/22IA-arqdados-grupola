@@ -14,9 +14,9 @@ RUN cd /home && \
     git clone https://github.com/FIAP22IA-grupola/22IA-arqdados-grupola.git
 
 #fazendo agora a copia dos arquivos de dados para o diretorio certo
-RUN cp -a 22IA-arqdados-grupola/create_database/dados/. ${PGDATA}
+COPY create_database/dados/. ${PGDATA}
 
-RUN cp 22IA-arqdados-grupola/create_host/dump.sql /docker-entrypoint-initdb.d/
+COPY create_host/dump.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 5432
 
