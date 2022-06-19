@@ -1,7 +1,11 @@
 version: "3.8"
 services:
   db:
-    build: .
+    build:
+      context: .
+      args:
+      - NODE_ENV=local
+      dockerfile: Dockerfile_db
     container_name: dindin_pgdatabase
     restart: always
     ports:
@@ -26,6 +30,16 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+
+  # jupyter_lab:
+  #   container_name: jupyter_lab
+  #   build: .
+  #   ports: 
+  #     - "8888:8888"
+  #   environment: 
+  #     - JUPYTER_ENABLE_LAB=yes
+  #   volumes: 
+  #     - .:/home/jovyan/work
 
 volumes:
   local_pgdata:
