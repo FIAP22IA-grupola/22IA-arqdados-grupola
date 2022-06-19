@@ -1,15 +1,17 @@
 -- Script criacao POstgres SQL
 
 -- -----------------------------------------------------
--- Schema DinDinAgora
+-- Schema dindinagora
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS "DinDinAgora"
+SET client_encoding = 'latin1';
+
+CREATE SCHEMA IF NOT EXISTS "dindinagora"
   AUTHORIZATION "user";
 
 -- -----------------------------------------------------
--- Table "DinDinAgora"."endereco"
+-- Table "dindinagora"."endereco"
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS "DinDinAgora"."endereco" (
+CREATE TABLE IF NOT EXISTS "dindinagora"."endereco" (
   "ID" SERIAL,
   "logradouro" VARCHAR(255) NOT NULL,
   "CEP" VARCHAR(255) NOT NULL,
@@ -17,10 +19,10 @@ CREATE TABLE IF NOT EXISTS "DinDinAgora"."endereco" (
   PRIMARY KEY ("ID"));
   
 -- -----------------------------------------------------
--- Table "DinDinAgora"."cliente"
+-- Table "dindinagora"."cliente"
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS "DinDinAgora"."cliente" (
+CREATE TABLE IF NOT EXISTS "dindinagora"."cliente" (
   "ID" SERIAL PRIMARY KEY,
   "nome" VARCHAR(255) NOT NULL,
   "RG" VARCHAR(255) NOT NULL,
@@ -28,40 +30,40 @@ CREATE TABLE IF NOT EXISTS "DinDinAgora"."cliente" (
   "enderecoFK" INT NULL,
     CONSTRAINT "fk_cliente_endereco"
     FOREIGN KEY ("enderecoFK")
-        REFERENCES "DinDinAgora"."endereco"("ID")
+        REFERENCES "dindinagora"."endereco"("ID")
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
    );
 
 CREATE INDEX "fk_cliente_endereco_idx"
-ON "DinDinAgora"."cliente" ("enderecoFK" ASC);
+ON "dindinagora"."cliente" ("enderecoFK" ASC);
 
 -- --------------------------------------------------
--- Table "DinDinAgora"."conta"
+-- Table "dindinagora"."conta"
 -- --------------------------------------------------
--- DROP TABLE "DinDinAgora"."conta";
-CREATE TABLE IF NOT EXISTS "DinDinAgora"."conta" (
+-- DROP TABLE "dindinagora"."conta";
+CREATE TABLE IF NOT EXISTS "dindinagora"."conta" (
   "ID" SERIAL,
   "cliente_fk" INT NOT NULL,
   "saldo" FLOAT NOT NULL,
   PRIMARY KEY ("ID"),
   CONSTRAINT fk_conta_cliente
     FOREIGN KEY (cliente_fk)
-    REFERENCES "DinDinAgora"."cliente"("ID")
+    REFERENCES "dindinagora"."cliente"("ID")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 CREATE INDEX "fk_conta_cliente_idx"
-ON "DinDinAgora"."conta"(cliente_fk);
+ON "dindinagora"."conta"(cliente_fk);
 
 CREATE UNIQUE INDEX "unique_fk_conta_cliente_idx"
-ON "DinDinAgora"."conta"(cliente_fk);
+ON "dindinagora"."conta"(cliente_fk);
 
 -- -----------------------------------------------------
--- Table "DinDinAgora"."transferencia"
+-- Table "dindinagora"."transferencia"
 -- -----------------------------------------------------
--- DROP TABLE "DinDinAgora"."transferencia";
-CREATE TABLE IF NOT EXISTS "DinDinAgora"."transferencia" (
+-- DROP TABLE "dindinagora"."transferencia";
+CREATE TABLE IF NOT EXISTS "dindinagora"."transferencia" (
   "ID" SERIAL,
   "montante" FLOAT NOT NULL,
   "tipo" CHAR(3),
@@ -70,44 +72,44 @@ CREATE TABLE IF NOT EXISTS "DinDinAgora"."transferencia" (
   PRIMARY KEY ("ID"),
   CONSTRAINT "fk_transferencia_origem"
     FOREIGN KEY (origem_fk)
-    REFERENCES "DinDinAgora"."conta"("ID")
+    REFERENCES "dindinagora"."conta"("ID")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT "fk_transferencia_destino"
     FOREIGN KEY (destino_fk)
-    REFERENCES "DinDinAgora"."conta"("ID")
+    REFERENCES "dindinagora"."conta"("ID")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT ckeck_transferencia check ("tipo" in ('PIX', 'TED', 'DOC'))
 );
 
 CREATE INDEX "fk_transferencia_origem_idx" 
-ON "DinDinAgora"."transferencia"("origem_fk" ASC);
+ON "dindinagora"."transferencia"("origem_fk" ASC);
  
 CREATE INDEX "fk_transferencia_destino_idx"
-ON "DinDinAgora"."transferencia"("destino_fk" ASC);
+ON "dindinagora"."transferencia"("destino_fk" ASC);
 
 -- -----------------------------------------------------
--- Table "DinDinAgora"."deposito"
+-- Table "dindinagora"."deposito"
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS "DinDinAgora"."deposito" (
+CREATE TABLE IF NOT EXISTS "dindinagora"."deposito" (
   "ID" SERIAL,
   "montante" FLOAT NOT NULL,
   "conta_fk" INT NOT NULL,
   PRIMARY KEY ("ID"),
   CONSTRAINT "fk_deposito_conta"
     FOREIGN KEY ("conta_fk")
-    REFERENCES "DinDinAgora"."conta"("ID")
+    REFERENCES "dindinagora"."conta"("ID")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
     
 CREATE  INDEX "fk_deposito_cliente_idx"
-ON "DinDinAgora"."deposito"("conta_fk" ASC);
+ON "dindinagora"."deposito"("conta_fk" ASC);
 
 -- -----------------------------------------------------
--- Table "DinDinAgora"."emprestimo"
+-- Table "dindinagora"."emprestimo"
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS "DinDinAgora"."emprestimo" (
+CREATE TABLE IF NOT EXISTS "dindinagora"."emprestimo" (
   "ID" SERIAL,
   "montante" FLOAT NOT NULL,
   "taxa_aa" FLOAT NOT NULL,
@@ -116,9 +118,9 @@ CREATE TABLE IF NOT EXISTS "DinDinAgora"."emprestimo" (
   PRIMARY KEY ("ID"),
   CONSTRAINT "fk_emprestimo_conta"
     FOREIGN KEY ("conta_fk")
-    REFERENCES "DinDinAgora"."conta"("ID")
+    REFERENCES "dindinagora"."conta"("ID")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
     
  CREATE INDEX "fk_emprestimo_cliente_idx" 
- ON "DinDinAgora"."emprestimo"("conta_fk" ASC);
+ ON "dindinagora"."emprestimo"("conta_fk" ASC);

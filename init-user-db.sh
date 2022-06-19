@@ -1,17 +1,11 @@
 #!/bin/bash
-set -e
+set -e 
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-	CREATE DATABASE postgres
-    WITH
-    OWNER = "user"
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'en_US.utf8'
-    LC_CTYPE = 'en_US.utf8'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
+cp -a home/dados_dindin/. /var/lib/postgresql/data
 
-    COMMENT ON DATABASE postgres
-    IS 'default administrative connection database';
+psql -v ON_ERROR_STOP=1 --username $POSTGRES_USER --dbname user <<-EOSQL
+    COPY dindinagora.cliente
+    FROM '/var/lib/postgresql/data/dados_clientes_3.csv' 
+    DELIMITER ';' 
+    CSV HEADER;
 EOSQL
-
