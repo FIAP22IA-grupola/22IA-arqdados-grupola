@@ -21,11 +21,11 @@ produtos de crédito e transferência.
 
 ## Arquivos
 
-> * a dll (comandos para criação do banco) se encontra no arquivo [DinDinAgora.sql](/DinDinAgora.sql).
->  O modelo está em pdf no arquivo [diagram.pdf](/diagram.pdf) . 
+> * a dll (comandos para criação do banco) se encontra no arquivo [dump.sql](/create_database/dump.sql).
+>  O modelo está em pdf no arquivo [diagram_schema.png](/diagram_schema.png) . 
 
-segue abaixo um preview do arquivo `diagram.pdf`:
-![image](https://user-images.githubusercontent.com/49515264/157539384-b0846d29-2a47-4dc1-b4f6-7b84a3566ffb.png)
+segue abaixo um preview do arquivo `diagram_schema.png`:
+![image](https://raw.githubusercontent.com/FIAP22IA-grupola/22IA-arqdados-grupola/main/diagram_schema.png)
 
 ## Enunciado Parte 3
 
