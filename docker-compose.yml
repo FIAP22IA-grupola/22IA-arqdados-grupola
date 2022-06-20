@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   db:
     build:
@@ -31,15 +32,49 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
-  # jupyter_lab:
-  #   container_name: jupyter_lab
-  #   build: .
-  #   ports: 
-  #     - "8888:8888"
-  #   environment: 
-  #     - JUPYTER_ENABLE_LAB=yes
-  #   volumes: 
-  #     - .:/home/jovyan/work
+  jupyter_lab:
+    image: jupyter/scipy-notebook
+    restart: always
+    container_name: jupyter_lab_dindinagora
+    ports: 
+      - "8888:8888"
+    environment: 
+      - JUPYTER_ENABLE_LAB=yes
+    volumes: 
+      - .:/home/dindinagora/wkdir
+
+  mongo:
+    image : mongo
+    container_name: dindin_mongo
+    volumes:
+      - database_mongodb:/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root_dindin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      PUID: 1000
+      PGID: 1000
+
+  mongo-express:
+    image: mongo-express
+    container_name: dindin_mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root_dindin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_URL: mongodb://root_dindin:admin@mongo:27017/
+
+  cassandra:
+    container_name: dindin_cassandra
+    image: cassandra:latest
+    environment:  
+      CASSANDRA_BROADCAST_ADDRESS: 10.1.1.1
+    ports:
+      - '7000:7000'
 
 volumes:
   local_pgdata:

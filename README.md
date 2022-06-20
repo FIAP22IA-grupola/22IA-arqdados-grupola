@@ -60,11 +60,29 @@ Também criar um modelo de dados para acompanhar e gerar alertas nas mudanças d
 ## Pergunta 1
 Para poder atender às necessidades de melhoria na eficiência do banco, podemos adotar 2 arquiteturas principais para cada temática:
 
-> **Para análises temporais com Machine Learning**: Podemos utulizar a arquitetura OLAP como o do Cassandra para melhor eficiência, aproveitando de sua esturura de cubos que já possuem uma agregação na visão necessária.
+> **Para análises temporais com Machine Learning**: Podemos utulizar a arquitetura OLAP como o do Cassandra para melhor eficiência, aproveitando de sua esturura de cubos que já possuem uma agregação na visão necessária. Aqui será necessário transferir todos os dados transacionais que temos no schema, sendo eles depósitos, treansferências e emprestimos.
 
-> **Para a melhoria nas requisições de consulta por tipo de produto e infos dos clientes**: Podemos nos aproveitar da agilidade de consulta de um banco MongoDB NoSQL, que atualmente é bastante usado para integrações na web, pois sua arquitetura não estruturada não depende de indexações sequenciais na busca de um cliente.
+> **Para a melhoria nas requisições de consulta por tipo de produto e infos dos clientes**: Podemos nos aproveitar da agilidade de consulta de um banco MongoDB NoSQL, que atualmente é bastante usado para integrações na web, pois sua arquitetura não estruturada não depende de indexações sequenciais na busca de um cliente. Nesta arquitetura podemos transferir os dados de empréstimos que são um dos produtos oferecidos pela solução da DinDinAgora.
 
 ## Pergunta 2:
 
 Os arquivos de instrução do banco, bem como de criação deles estão na pasta *create_database*
 
+Existe um arquivo para gerar todo o ambiente de teste que fizemos para esse trabalho na pasta. Basta selecionar um diretório para trabalho e reproduzir o cenário com:
+
+`git clone https://github.com/FIAP22IA-grupola/22IA-arqdados-grupola.git`
+
+E nesse mesmo diretório, subir os containers que utilizamos o recurso do compose na versão 3.8: 
+
+`docker-compose up`
+
+Após isso, irá se criar um eco-sistema em que vão existir os seguintes containers:
+
+- **dindin_pgdatabase**: Neste container vão estar os dados que foram proejtados na parte 1 e 2 dessa atividade. Este container sobe a instância, cria as tabelas do schema e já importa no momento em que o container está sendo criado;
+- **pgadmin4_container**: Container usado para verificar as bases de dados diretamente no banco com sql nativo;
+- **jupyter_lab_dindinagora**: utilizado para simuçar as situações de consulta que precisariamos nos novos bancos, bem como também esquematizar a arquitetura de como seria a solução para a parte 3 do problema;
+- **container_name: dindin_mongo**: Banco de documentos do MongoDB que guardará informações de empréstimos, como um catalogo de produtos.
+- **dindin_mongo-express**:IDE para conferir os documentos salvos no MongoDB
+- **dindin_cassandra**:Container que já possui 3 emdpoints pré setados do Cassandra, que servem de um "mini cluster" da apache para consumo dos bancos de dados
+
+No arquivo [teste_import_postgres.ipynb](teste_import_postgres.ipynb) descorremos sobre como fazer a implementação da solução de banco de dados, além de também realizarmos testes de performance de consumo através de um notebook no mesmo cluster onde estão os containers na rede do host.
