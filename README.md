@@ -11,7 +11,7 @@ Lucas Augusto Ribeiro - RM343289
 
 ## Enunciado parte 1 e 2
 
-A DindinAgora, tem sofrido com lentidões em seus sistema transacional principal, onde os clientes
+A DindinAgora, tem sofrido com lentidões em seus sistemas transacionais principais, onde os clientes
 podem se cadastrar, adquirir produtos (crédito) e realizar transações financeiras, como depósitos e
 transferências.
 
@@ -81,7 +81,7 @@ Após isso, irá se criar um eco-sistema em que vão existir os seguintes contai
 - **dindin_pgdatabase**: Neste container vão estar os dados que foram proejtados na parte 1 e 2 dessa atividade. Este container sobe a instância, cria as tabelas do schema e já importa no momento em que o container está sendo criado;
 - **pgadmin4_container**: Container usado para verificar as bases de dados diretamente no banco com sql nativo;
 - **jupyter_lab_dindinagora**: utilizado para simuçar as situações de consulta que precisariamos nos novos bancos, bem como também esquematizar a arquitetura de como seria a solução para a parte 3 do problema;
-- **container_name: dindin_mongo**: Banco de documentos do MongoDB que guardará informações de empréstimos, como um catalogo de produtos.
+- **dindin_mongo**: Banco de documentos do MongoDB que guardará informações de empréstimos, como um catalogo de produtos.
 - **dindin_mongo-express**:IDE para conferir os documentos salvos no MongoDB
 - **dindin_cassandra**:Container que já possui 3 emdpoints pré setados do Cassandra, que servem de um "mini cluster" da apache para consumo dos bancos de dados
 
