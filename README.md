@@ -69,12 +69,15 @@ Para poder atender às necessidades de melhoria na eficiência do banco, podemos
 Os arquivos de instrução do banco, bem como de criação deles estão na pasta *create_database*
 
 Existe um arquivo para gerar todo o ambiente de teste que fizemos para esse trabalho na pasta. Basta selecionar um diretório para trabalho e reproduzir o cenário com:
-
-`git clone https://github.com/FIAP22IA-grupola/22IA-arqdados-grupola.git`
+```
+git clone https://github.com/FIAP22IA-grupola/22IA-arqdados-grupola.git
+```
 
 E nesse mesmo diretório, subir os containers que utilizamos o recurso do compose na versão 3.8: 
 
-`docker-compose up`
+```
+docker-compose up
+```
 
 Após isso, irá se criar um eco-sistema em que vão existir os seguintes containers:
 
